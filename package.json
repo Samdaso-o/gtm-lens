@@ -9,10 +9,12 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.ko.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
     "dev": "tsx src/cli.ts",
     "test": "tsx --test test/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
@@ -30,6 +32,15 @@
     "lint"
   ],
   "license": "MIT",
+  "author": "Samdaso-o",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samdaso-o/gtm-lens.git"
+  },
+  "homepage": "https://github.com/Samdaso-o/gtm-lens#readme",
+  "bugs": {
+    "url": "https://github.com/Samdaso-o/gtm-lens/issues"
+  },
   "devDependencies": {
     "@types/node": "^20.14.0",
     "tsx": "^4.19.0",

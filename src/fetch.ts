@@ -26,7 +26,7 @@ export async function findContainerIds(
   const response = await doFetch(pageUrl, {
     redirect: 'follow',
     signal: AbortSignal.timeout(options.timeoutMs ?? 15_000),
-    headers: { 'user-agent': 'Mozilla/5.0 (compatible; gtm-lens; +https://github.com/)' },
+    headers: { 'user-agent': 'Mozilla/5.0 (compatible; gtm-lens; +https://github.com/Samdaso-o/gtm-lens)' },
   });
   const html = await response.text();
   return [...new Set(html.match(/GTM-[A-Z0-9]{4,10}/g) ?? [])];
