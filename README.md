@@ -5,7 +5,7 @@
 **Inspect a published Google Tag Manager container from its public `gtm.js` — see where every tag sends data, and catch delivery paths that are silently broken.** No GTM account access needed.
 
 ```
-$ npx gtm-lens ./test/fixtures/broken-server-route.gtm.js
+$ gtm-lens test/fixtures/broken-server-route.gtm.js
 
 container · version 42
 9 tags (1 paused) · 8 variables · 4 trigger rules
@@ -62,18 +62,24 @@ GA4 event tags inherit the settings of the Google tag with the same measurement 
 ## Usage
 
 ```bash
-npx gtm-lens GTM-XXXXXXX             # container ID
-npx gtm-lens https://www.example.com # every container the page loads
-npx gtm-lens ./gtm.js                # a saved file
+npx github:Samdaso-o/gtm-lens GTM-XXXXXXX             # container ID
+npx github:Samdaso-o/gtm-lens https://www.example.com # every container the page loads
+npx github:Samdaso-o/gtm-lens ./gtm.js                # a saved file
 
 --json      JSON output (CI, other tools)
 --offline   do not probe server URLs
 --verbose   show every item
 ```
 
+The first run takes a little longer: npx installs from GitHub and builds the package. (An npm release is planned.)
+
 Exits with code 1 when any finding is an `error`, so it drops straight into a post-deploy check or CI.
 
 As a library:
+
+```bash
+npm install github:Samdaso-o/gtm-lens
+```
 
 ```ts
 import { fetchContainerSource, extractContainer, inspect } from 'gtm-lens';

@@ -5,7 +5,7 @@
 **GTM 컨테이너 공개 파일만으로, 태그가 어디로 데이터를 보내는지와 고장 난 전송 경로를 찾는다.** GTM 계정 권한이 없어도 된다.
 
 ```
-$ npx gtm-lens ./test/fixtures/broken-server-route.gtm.js
+$ gtm-lens test/fixtures/broken-server-route.gtm.js
 
 container · version 42
 9 tags (1 paused) · 8 variables · 4 trigger rules
@@ -62,18 +62,24 @@ GA4 이벤트 태그는 같은 측정 ID의 Google 태그 설정을 물려받는
 ## 사용법
 
 ```bash
-npx gtm-lens GTM-XXXXXXX            # 컨테이너 ID
-npx gtm-lens https://www.example.com # 페이지가 불러오는 컨테이너를 찾아서 전부
-npx gtm-lens ./gtm.js                # 저장해 둔 파일
+npx github:Samdaso-o/gtm-lens GTM-XXXXXXX            # 컨테이너 ID
+npx github:Samdaso-o/gtm-lens https://www.example.com # 페이지가 불러오는 컨테이너를 찾아서 전부
+npx github:Samdaso-o/gtm-lens ./gtm.js                # 저장해 둔 파일
 
 --json      JSON으로 출력 (CI·다른 도구 연동)
 --offline   서버 주소를 직접 확인하지 않음
 --verbose   모든 항목 표시
 ```
 
+처음 실행할 때는 GitHub에서 받아 빌드하느라 조금 느리다. (npm 배포는 준비 중)
+
 `error`가 하나라도 있으면 종료 코드 1을 돌려준다. 배포 후 점검이나 CI에 그대로 넣을 수 있다.
 
 라이브러리로도 쓸 수 있다.
+
+```bash
+npm install github:Samdaso-o/gtm-lens
+```
 
 ```ts
 import { fetchContainerSource, extractContainer, inspect } from 'gtm-lens';
