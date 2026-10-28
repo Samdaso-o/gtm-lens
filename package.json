@@ -1,0 +1,38 @@
+{
+  "name": "gtm-lens",
+  "version": "0.1.0",
+  "description": "Inspect a public Google Tag Manager container: map tags, triggers and destinations, and flag broken delivery paths.",
+  "type": "module",
+  "bin": {
+    "gtm-lens": "dist/cli.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "test": "tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "google-tag-manager",
+    "gtm",
+    "ga4",
+    "server-side-tagging",
+    "analytics",
+    "audit",
+    "lint"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
