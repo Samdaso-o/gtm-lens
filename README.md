@@ -5,28 +5,34 @@
 **Inspect a published Google Tag Manager container from its public `gtm.js` — see where every tag sends data, and catch delivery paths that are silently broken.** No GTM account access needed.
 
 ```
-$ npx gtm-lens GTM-XXXXXXX
+$ npx gtm-lens ./test/fixtures/broken-server-route.gtm.js
 
-GTM-XXXXXXX · version 84
-196 tags (23 paused) · 97 variables · 109 trigger rules
+container · version 42
+9 tags (1 paused) · 8 variables · 4 trigger rules
 
 Sends to
-  GA4         G-XXXXXXXXXX       95 tag(s)
-  Meta Pixel  1234567890123456   4 tag(s)
-  Google Ads  AW-1234567890      1 tag(s)
+  GA4         G-TEST000001  4 tag(s)
+  Meta Pixel  1234567890123456  2 tag(s)
+  GA4         G-OTHER00002  1 tag(s)
 
 Findings
-✖ 95 tag(s) send to https://shop.example/metrics, which is not a working server container
-    https://shop.example/metrics/healthy answers with an HTML page (200, text/html) —
+✖ 4 tag(s) send to https://example.com/metrics, which is not a working server container
+    https://example.com/metrics/healthy answers with an HTML page (404, text/html; charset=utf-8) —
     something other than a server container is serving this path. Hits sent there are dropped.
-    · Google tag (#4)
-    · GA4 event "purchase" (#28)
-    … 93 more (--verbose)
+    · Google tag (#10)
+    · GA4 event "view_item" (#11)
+    · GA4 event "purchase" (#12)
+    · GA4 event "scroll" (#13)
 ▲ server_container_url is set in 2 places
     Changing it in one place leaves the others sending to the old URL.
-    · Google tag config settings (macro #2)
-    · Google tag event settings (macro #21)
+    · Google tag config settings (macro #3)
+    · Google tag event settings (macro #4)
+▲ 1 GA4 event tag(s) send to G-OTHER00002, but no Google tag configures it
+ℹ 1 tag(s) have no firing trigger
+…
 ```
+
+The example above is the synthetic container in [`test/fixtures`](test/fixtures/broken-server-route.gtm.js), which reproduces the incident described below. Point it at any `GTM-XXXXXXX` to inspect a live container.
 
 ## Why
 

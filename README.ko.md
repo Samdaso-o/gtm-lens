@@ -5,28 +5,34 @@
 **GTM 컨테이너 공개 파일만으로, 태그가 어디로 데이터를 보내는지와 고장 난 전송 경로를 찾는다.** GTM 계정 권한이 없어도 된다.
 
 ```
-$ npx gtm-lens GTM-XXXXXXX
+$ npx gtm-lens ./test/fixtures/broken-server-route.gtm.js
 
-GTM-XXXXXXX · version 84
-196 tags (23 paused) · 97 variables · 109 trigger rules
+container · version 42
+9 tags (1 paused) · 8 variables · 4 trigger rules
 
 Sends to
-  GA4         G-XXXXXXXXXX       95 tag(s)
-  Meta Pixel  1234567890123456   4 tag(s)
-  Google Ads  AW-1234567890      1 tag(s)
+  GA4         G-TEST000001  4 tag(s)
+  Meta Pixel  1234567890123456  2 tag(s)
+  GA4         G-OTHER00002  1 tag(s)
 
 Findings
-✖ 95 tag(s) send to https://shop.example/metrics, which is not a working server container
-    https://shop.example/metrics/healthy answers with an HTML page (200, text/html) —
+✖ 4 tag(s) send to https://example.com/metrics, which is not a working server container
+    https://example.com/metrics/healthy answers with an HTML page (404, text/html; charset=utf-8) —
     something other than a server container is serving this path. Hits sent there are dropped.
-    · Google tag (#4)
-    · GA4 event "purchase" (#28)
-    … 93 more (--verbose)
+    · Google tag (#10)
+    · GA4 event "view_item" (#11)
+    · GA4 event "purchase" (#12)
+    · GA4 event "scroll" (#13)
 ▲ server_container_url is set in 2 places
     Changing it in one place leaves the others sending to the old URL.
-    · Google tag config settings (macro #2)
-    · Google tag event settings (macro #21)
+    · Google tag config settings (macro #3)
+    · Google tag event settings (macro #4)
+▲ 1 GA4 event tag(s) send to G-OTHER00002, but no Google tag configures it
+ℹ 1 tag(s) have no firing trigger
+…
 ```
+
+위 예시는 [`test/fixtures`](test/fixtures/broken-server-route.gtm.js)에 있는 합성 컨테이너로 돌린 결과다. 아래 "왜 만들었나"의 장애 상황을 재현해 둔 파일이다. 실제 컨테이너는 `GTM-XXXXXXX`를 넣으면 된다.
 
 ## 왜 만들었나
 
